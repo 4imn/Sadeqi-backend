@@ -8,6 +8,7 @@ const { notFound, errorHandler } = require('./middlewares/error');
 const connectDB = require('./config/db');
 const { initScheduler } = require('./utils/scheduler');
 const auth = require('./middlewares/auth');
+const swaggerSetup = require('./swagger');
 
 // Initialize Express app
 const app = express();
@@ -40,6 +41,7 @@ app.use('/api/settings', auth, settingsRoutes);
 app.use('/api/prayer', prayerRoutes);
 app.use('/api/medicine', auth, medicineRoutes);
 
+swaggerSetup(app);
 // Basic route for health check
 app.get('/', (req, res) => {
   res.status(200).json({
