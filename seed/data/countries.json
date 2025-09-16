@@ -1,0 +1,301 @@
+[
+    {
+        "code": "SAU",
+        "name": {
+            "en": "Saudi Arabia",
+            "ar": "المملكة العربية السعودية"
+        },
+        "coordinates": {
+            "latitude": 24.7136,
+            "longitude": 46.6753
+        },
+        "city": "Riyadh",
+        "timezone": "Asia/Riyadh"
+    },
+    {
+        "code": "JOR",
+        "name": {
+            "en": "Jordan",
+            "ar": "الأردن"
+        },
+        "coordinates": {
+            "latitude": 31.9522,
+            "longitude": 35.9132
+        },
+        "city": "Amman",
+        "timezone": "Asia/Amman"
+    },
+    {
+        "code": "ARE",
+        "name": {
+            "en": "United Arab Emirates",
+            "ar": "الإمارات العربية المتحدة"
+        },
+        "coordinates": {
+            "latitude": 24.4539,
+            "longitude": 54.3773
+        },
+        "city": "Abu Dhabi",
+        "timezone": "Asia/Dubai"
+    },
+    {
+        "code": "QAT",
+        "name": {
+            "en": "Qatar",
+            "ar": "قطر"
+        },
+        "coordinates": {
+            "latitude": 25.3548,
+            "longitude": 51.1839
+        },
+        "city": "Doha",
+        "timezone": "Asia/Qatar"
+    },
+    {
+        "code": "KWT",
+        "name": {
+            "en": "Kuwait",
+            "ar": "الكويت"
+        },
+        "coordinates": {
+            "latitude": 29.3759,
+            "longitude": 47.9774
+        },
+        "city": "Kuwait City",
+        "timezone": "Asia/Kuwait"
+    },
+    {
+        "code": "BHR",
+        "name": {
+            "en": "Bahrain",
+            "ar": "البحرين"
+        },
+        "coordinates": {
+            "latitude": 26.0667,
+            "longitude": 50.5577
+        },
+        "city": "Manama",
+        "timezone": "Asia/Bahrain"
+    },
+    {
+        "code": "OMN",
+        "name": {
+            "en": "Oman",
+            "ar": "عُمان"
+        },
+        "coordinates": {
+            "latitude": 23.5859,
+            "longitude": 58.4059
+        },
+        "city": "Muscat",
+        "timezone": "Asia/Muscat"
+    },
+    {
+        "code": "YEM",
+        "name": {
+            "en": "Yemen",
+            "ar": "اليمن"
+        },
+        "coordinates": {
+            "latitude": 15.3694,
+            "longitude": 44.1910
+        },
+        "city": "Sana'a",
+        "timezone": "Asia/Aden"
+    },
+    {
+        "code": "IRQ",
+        "name": {
+            "en": "Iraq",
+            "ar": "العراق"
+        },
+        "coordinates": {
+            "latitude": 33.3152,
+            "longitude": 44.3661
+        },
+        "city": "Baghdad",
+        "timezone": "Asia/Baghdad"
+    },
+    {
+        "code": "SYR",
+        "name": {
+            "en": "Syria",
+            "ar": "سوريا"
+        },
+        "coordinates": {
+            "latitude": 33.5138,
+            "longitude": 36.2765
+        },
+        "city": "Damascus",
+        "timezone": "Asia/Damascus"
+    },
+    {
+        "code": "LBN",
+        "name": {
+            "en": "Lebanon",
+            "ar": "لبنان"
+        },
+        "coordinates": {
+            "latitude": 33.8938,
+            "longitude": 35.5018
+        },
+        "city": "Beirut",
+        "timezone": "Asia/Beirut"
+    },
+    {
+        "code": "PSE",
+        "name": {
+            "en": "Palestine",
+            "ar": "فلسطين"
+        },
+        "coordinates": {
+            "latitude": 31.9454,
+            "longitude": 35.3027
+        },
+        "city": "Jerusalem",
+        "timezone": "Asia/Hebron"
+    },
+    {
+        "code": "EGY",
+        "name": {
+            "en": "Egypt",
+            "ar": "مصر"
+        },
+        "coordinates": {
+            "latitude": 30.0444,
+            "longitude": 31.2357
+        },
+        "city": "Cairo",
+        "timezone": "Africa/Cairo"
+    },
+    {
+        "code": "LBY",
+        "name": {
+            "en": "Libya",
+            "ar": "ليبيا"
+        },
+        "coordinates": {
+            "latitude": 32.8872,
+            "longitude": 13.1913
+        },
+        "city": "Tripoli",
+        "timezone": "Africa/Tripoli"
+    },
+    {
+        "code": "TUN",
+        "name": {
+            "en": "Tunisia",
+            "ar": "تونس"
+        },
+        "coordinates": {
+            "latitude": 36.8065,
+            "longitude": 10.1815
+        },
+        "city": "Tunis",
+        "timezone": "Africa/Tunis"
+    },
+    {
+        "code": "DZA",
+        "name": {
+            "en": "Algeria",
+            "ar": "الجزائر"
+        },
+        "coordinates": {
+            "latitude": 36.7538,
+            "longitude": 3.0588
+        },
+        "city": "Algiers",
+        "timezone": "Africa/Algiers"
+    },
+    {
+        "code": "MAR",
+        "name": {
+            "en": "Morocco",
+            "ar": "المغرب"
+        },
+        "coordinates": {
+            "latitude": 33.9716,
+            "longitude": 6.8498
+        },
+        "city": "Rabat",
+        "timezone": "Africa/Casablanca"
+    },
+    {
+        "code": "MRT",
+        "name": {
+            "en": "Mauritania",
+            "ar": "موريتانيا"
+        },
+        "coordinates": {
+            "latitude": 18.0735,
+            "longitude": 15.9582
+        },
+        "city": "Nouakchott",
+        "timezone": "Africa/Nouakchott"
+    },
+    {
+        "code": "SDN",
+        "name": {
+            "en": "Sudan",
+            "ar": "السودان"
+        },
+        "coordinates": {
+            "latitude": 15.5007,
+            "longitude": 32.5599
+        },
+        "city": "Khartoum",
+        "timezone": "Africa/Khartoum"
+    },
+    {
+        "code": "SOM",
+        "name": {
+            "en": "Somalia",
+            "ar": "الصومال"
+        },
+        "coordinates": {
+            "latitude": 2.0469,
+            "longitude": 45.3182
+        },
+        "city": "Mogadishu",
+        "timezone": "Africa/Mogadishu"
+    },
+    {
+        "code": "DJI",
+        "name": {
+            "en": "Djibouti",
+            "ar": "جيبوتي"
+        },
+        "coordinates": {
+            "latitude": 11.5880,
+            "longitude": 43.1450
+        },
+        "city": "Djibouti City",
+        "timezone": "Africa/Djibouti"
+    },
+    {
+        "code": "COM",
+        "name": {
+            "en": "Comoros",
+            "ar": "جزر القمر"
+        },
+        "coordinates": {
+            "latitude": 11.6455,
+            "longitude": 43.3333
+        },
+        "city": "Moroni",
+        "timezone": "Indian/Comoro"
+    },
+    {
+        "code": "ESH",
+        "name": {
+            "en": "Western Sahara",
+            "ar": "الصحراء الغربية"
+        },
+        "coordinates": {
+            "latitude": 24.2155,
+            "longitude": 12.8858
+        },
+        "city": "El Aaiún",
+        "timezone": "Africa/El_Aaiun"
+    }
+]

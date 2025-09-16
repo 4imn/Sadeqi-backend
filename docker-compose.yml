@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: sadeqi-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      - NODE_ENV=development
+      - TZ=Asia/Riyadh
+      - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@db:27017/sadeqi?authSource=admin
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - db
+      - redis
+    command: sh -c "npm install && npm run seed && npm start"
+    networks:
+      - sadeqi-network
+
+  db:
+    image: mongo:6.0
+    container_name: sadeqi-db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - sadeqi-network
+
+  redis:
+    image: redis:alpine
+    container_name: sadeqi-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - sadeqi-network
+
+volumes:
+  mongodb_data:
+  redis_data:
+
+networks:
+  sadeqi-network:
+    driver: bridge
