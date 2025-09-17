@@ -1,6 +1,6 @@
 const Redis = require('ioredis');
 const logger = require('../utils/logger');
-
+require('dotenv').config();
 const redisConfig = {
   host: process.env.REDIS_HOST || 'redis',
   port: process.env.REDIS_PORT || 6379,

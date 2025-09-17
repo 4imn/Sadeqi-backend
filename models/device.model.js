@@ -75,6 +75,16 @@ deviceSchema.statics.findOrCreate = async function(deviceId, fcmToken, platform)
   return device;
 };
 
+// Find active devices by country code
+deviceSchema.statics.findActiveByCountry = async function (countryCode) {
+  return this.find({
+    country: countryCode.toUpperCase(), // To be compatible with the uppercase of the model
+    isActive: true
+  });
+};
+
+
+
 // Index for faster queries
 deviceSchema.index({ deviceId: 1 });
 deviceSchema.index({ fcmToken: 1 });
