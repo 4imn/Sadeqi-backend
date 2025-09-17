@@ -3,7 +3,6 @@ const connectDB = require('../config/db');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-// الاتصال بقاعدة البيانات
 (async () => {
   try {
     await connectDB();
@@ -19,7 +18,8 @@ async function testMedicineNotification() {
     console.log('🚀 Starting medicine notification test...');
     console.log('Current time:', new Date().toISOString());
     
-    // إنشاء دواء تجريبي سيتم تفعيله بعد دقيقة واحدة
+    // Create a test medicine that will be activated after one minute
+
     const now = new Date();
     const testReminderTime = new Date(now.getTime() + 1 * 60 * 1000); // بعد دقيقة واحدة
     
@@ -27,13 +27,13 @@ async function testMedicineNotification() {
     
     const utcTime = testReminderTime.getUTCHours().toString().padStart(2, '0') + ':' +
                 testReminderTime.getUTCMinutes().toString().padStart(2, '0');
-    // بيانات الدواء التجريبي
+// Test medicine data
     const testMedicineData = {
       name: 'Test Medicine - Ibuprofen',
       reminderType: 'specific_time',
       specificTime: {
-        time: utcTime, // تنسيق HH:MM
-        frequency: 1, // مرة واحدة
+        time: utcTime, // HH:MM
+        frequency: 1, // Once
         offsets: {
           before: 0,
           after1: 0,
@@ -46,14 +46,15 @@ async function testMedicineNotification() {
     
     console.log('Creating test medicine with data:', JSON.stringify(testMedicineData, null, 2));
     
-    // إنشاء الدواء (استخدم معرف مستخدم تجريبي)
-    const testUserId = new mongoose.Types.ObjectId(); // معرف مستخدم تجريبي
+    // Create the medicine (use a test user ID)
+    const testUserId = new mongoose.Types.ObjectId(); // Test user ID
+
     const medicine = await createMedicineReminder(testUserId, testMedicineData);
     
     console.log('✅ Test medicine created successfully:', medicine._id);
     console.log('⏳ Waiting for medicine time... (checking every 2 seconds)');
     
-    // التحقق من الأدوية المستحقة كل ثانيتين
+// Check due medicines every two seconds
     const interval = setInterval(async () => {
       const currentTime = new Date();
       console.log(`\n[${currentTime.toISOString()}] Checking for due medicines...`);
@@ -65,7 +66,7 @@ async function testMedicineNotification() {
           console.log('\n🎉 Medicine reminder notification triggered!');
           console.log('Due medicines:', JSON.stringify(dueMedicines, null, 2));
           
-          // تحديث وقت آخر إشعار تم إرساله
+// Update the time of the last sent notification
           for (const medicine of dueMedicines) {
             await updateLastReminderSent(medicine._id);
             console.log(`✅ Updated last reminder time for medicine: ${medicine._id}`);
@@ -84,7 +85,7 @@ async function testMedicineNotification() {
       }
     }, 2000);
     
-    // إيقاف الاختبار بعد 5 دقائق كحد أقصى
+// Stop the test after a maximum of 5 minutes
     setTimeout(() => {
       clearInterval(interval);
       console.log('❌ Test timeout after 5 minutes');
@@ -97,5 +98,4 @@ async function testMedicineNotification() {
   }
 }
 
-// تشغيل الاختبار
 testMedicineNotification();

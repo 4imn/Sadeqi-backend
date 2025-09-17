@@ -2,8 +2,7 @@ const { checkUpcomingPrayerTimes, cacheCountryPrayerTimes } = require('../servic
 const moment = require('moment-timezone');
 const { getPrayerTimestamp } = require('../services/prayer.service');
 
-const connectDB = require('../config/db'); // أو حسب مكان ملف الاتصال عندك
-
+const connectDB = require('../config/db'); 
 (async () => {
   try {
     await connectDB();

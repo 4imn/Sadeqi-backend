@@ -151,7 +151,7 @@ medicineSchema.pre('save', function(next) {
     if (reminderTimes.length > 0) {
       const [hours, minutes] = reminderTimes[0].split(':').map(Number);
       const next = new Date();
-      next.setUTCHours(hours, minutes, 0, 0); // ✅ استخدم UTC
+      next.setUTCHours(hours, minutes, 0, 0); 
       this.nextReminder = next;
     }
   }

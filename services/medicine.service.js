@@ -1,6 +1,6 @@
-const Medicine = require('../models/medicine.model');
-const { ERRORS, MEDICINE } = require('../config/constants');
-const User = require('../models/user.model');
+const Medicine = require("../models/medicine.model");
+const { ERRORS, MEDICINE } = require("../config/constants");
+const User = require("../models/user.model");
 
 /**
  * Create a new medicine reminder
@@ -13,11 +13,22 @@ const createMedicineReminder = async (userId, medicineData) => {
     // Validate required fields based on reminder type
     if (medicineData.reminderType === MEDICINE.REMINDER_TYPES.SPECIFIC_TIME) {
       if (!medicineData.specificTime?.time) {
-        throw new Error(ERRORS.VALIDATION.REQUIRED_FIELD + ': specificTime.time');
+        throw new Error(
+          ERRORS.VALIDATION.REQUIRED_FIELD + ": specificTime.time"
+        );
       }
-    } else if (medicineData.reminderType === MEDICINE.REMINDER_TYPES.EVERY_X_HOURS) {
-      if (!medicineData.interval?.hours || !medicineData.interval?.startTime || !medicineData.interval?.endTime) {
-        throw new Error(ERRORS.VALIDATION.REQUIRED_FIELD + ': interval.hours, interval.startTime, and interval.endTime');
+    } else if (
+      medicineData.reminderType === MEDICINE.REMINDER_TYPES.EVERY_X_HOURS
+    ) {
+      if (
+        !medicineData.interval?.hours ||
+        !medicineData.interval?.startTime ||
+        !medicineData.interval?.endTime
+      ) {
+        throw new Error(
+          ERRORS.VALIDATION.REQUIRED_FIELD +
+            ": interval.hours, interval.startTime, and interval.endTime"
+        );
       }
     } else {
       throw new Error(ERRORS.VALIDATION.INVALID_REMINDER_TYPE);
@@ -25,7 +36,7 @@ const createMedicineReminder = async (userId, medicineData) => {
 
     const medicine = new Medicine({
       user: userId,
-      ...medicineData
+      ...medicineData,
     });
 
     // Calculate next reminder time if it's an interval-based reminder
@@ -35,7 +46,7 @@ const createMedicineReminder = async (userId, medicineData) => {
 
     return await medicine.save();
   } catch (error) {
-    if (error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       throw new Error(ERRORS.VALIDATION.INVALID_INPUT);
     }
     throw error;
@@ -54,7 +65,7 @@ const getUserMedicineReminders = async (userId, activeOnly = true) => {
     if (activeOnly) {
       query.enabled = true;
     }
-    
+
     return await Medicine.find(query).sort({ createdAt: -1 });
   } catch (error) {
     throw new Error(ERRORS.MEDICINE.FETCH_FAILED);
@@ -75,7 +86,7 @@ const getMedicineReminderById = async (userId, medicineId) => {
     }
     return medicine;
   } catch (error) {
-    if (error.name === 'CastError') {
+    if (error.name === "CastError") {
       throw new Error(ERRORS.MEDICINE.NOT_FOUND);
     }
     throw error;
@@ -92,25 +103,32 @@ const getMedicineReminderById = async (userId, medicineId) => {
 const updateMedicineReminder = async (userId, medicineId, updates) => {
   try {
     const allowedUpdates = {
-      name: (val) => typeof val === 'string' && val.trim().length > 0,
-      enabled: (val) => typeof val === 'boolean',
-      notes: (val) => typeof val === 'string',
-      reminderType: (val) => Object.values(MEDICINE.REMINDER_TYPES).includes(val),
+      name: (val) => typeof val === "string" && val.trim().length > 0,
+      enabled: (val) => typeof val === "boolean",
+      notes: (val) => typeof val === "string",
+      reminderType: (val) =>
+        Object.values(MEDICINE.REMINDER_TYPES).includes(val),
       specificTime: (val) => {
         if (!val) return false;
-        if (val.time && !/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(val.time)) return false;
-        if (val.frequency && !Object.values(MEDICINE.REMINDER_FREQUENCY).includes(val.frequency)) return false;
+        if (val.time && !/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(val.time))
+          return false;
+        if (
+          val.frequency &&
+          !Object.values(MEDICINE.REMINDER_FREQUENCY).includes(val.frequency)
+        )
+          return false;
         return true;
       },
       interval: (val) => {
         if (!val) return false;
-        if (val.hours && !MEDICINE.INTERVAL_OPTIONS.includes(val.hours)) return false;
+        if (val.hours && !MEDICINE.INTERVAL_OPTIONS.includes(val.hours))
+          return false;
         return true;
-      }
+      },
     };
 
     const updatesToApply = {};
-    
+
     for (const [key, value] of Object.entries(updates)) {
       if (key in allowedUpdates && allowedUpdates[key](value)) {
         updatesToApply[key] = value;
@@ -132,14 +150,17 @@ const updateMedicineReminder = async (userId, medicineId, updates) => {
     }
 
     // Recalculate next reminder time if interval was updated
-    if (updatesToApply.interval && medicine.reminderType === MEDICINE.REMINDER_TYPES.EVERY_X_HOURS) {
+    if (
+      updatesToApply.interval &&
+      medicine.reminderType === MEDICINE.REMINDER_TYPES.EVERY_X_HOURS
+    ) {
       medicine.nextReminder = medicine.calculateNextIntervalReminder();
       await medicine.save();
     }
 
     return medicine;
   } catch (error) {
-    if (error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       throw new Error(ERRORS.VALIDATION.INVALID_INPUT);
     }
     throw error;
@@ -160,7 +181,7 @@ const deleteMedicineReminder = async (userId, medicineId) => {
     }
     return true;
   } catch (error) {
-    if (error.name === 'CastError') {
+    if (error.name === "CastError") {
       throw new Error(ERRORS.MEDICINE.NOT_FOUND);
     }
     throw error;
@@ -174,7 +195,7 @@ const deleteMedicineReminder = async (userId, medicineId) => {
  */
 const getDueReminders = async (currentTime = new Date()) => {
   try {
-    // نحسب الوقت الحالي بالدقائق فقط (نتجاهل الثواني والملي ثانية)
+    // Calculate the current time in minutes only (ignore seconds and milliseconds)
     const startOfMinute = new Date(currentTime);
     startOfMinute.setSeconds(0, 0);
 
@@ -183,14 +204,13 @@ const getDueReminders = async (currentTime = new Date()) => {
 
     return await Medicine.find({
       enabled: true,
-      nextReminder: { $gte: startOfMinute, $lte: endOfMinute } // فقط الأدوية ضمن الدقيقة الحالية
-    }).populate('user', 'deviceId token');
+      nextReminder: { $gte: startOfMinute, $lte: endOfMinute }, // Only the medicines within the current minute
+    }).populate("user", "deviceId token");
   } catch (error) {
-    console.error('MongoDB query failed:', error);
+    console.error("MongoDB query failed:", error);
     throw new Error(ERRORS.MEDICINE.FETCH_FAILED);
   }
 };
-
 
 /**
  * Update the last reminder sent time
@@ -201,10 +221,10 @@ const getDueReminders = async (currentTime = new Date()) => {
 const updateLastReminderSent = async (medicineId, sentTime = new Date()) => {
   try {
     await Medicine.findByIdAndUpdate(medicineId, {
-      lastReminderSent: sentTime
+      lastReminderSent: sentTime,
     });
   } catch (error) {
-    console.error('Error updating last reminder time:', error);
+    console.error("Error updating last reminder time:", error);
   }
 };
 
@@ -215,5 +235,5 @@ module.exports = {
   updateMedicineReminder,
   deleteMedicineReminder,
   getDueReminders,
-  updateLastReminderSent
+  updateLastReminderSent,
 };
