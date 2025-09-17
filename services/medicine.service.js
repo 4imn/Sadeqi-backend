@@ -1,5 +1,6 @@
 const Medicine = require('../models/medicine.model');
 const { ERRORS, MEDICINE } = require('../config/constants');
+const User = require('../models/user.model');
 
 /**
  * Create a new medicine reminder
@@ -173,14 +174,23 @@ const deleteMedicineReminder = async (userId, medicineId) => {
  */
 const getDueReminders = async (currentTime = new Date()) => {
   try {
+    // نحسب الوقت الحالي بالدقائق فقط (نتجاهل الثواني والملي ثانية)
+    const startOfMinute = new Date(currentTime);
+    startOfMinute.setSeconds(0, 0);
+
+    const endOfMinute = new Date(startOfMinute);
+    endOfMinute.setSeconds(59, 999);
+
     return await Medicine.find({
       enabled: true,
-      nextReminder: { $lte: currentTime }
-    }).populate('user', 'deviceToken');
+      nextReminder: { $gte: startOfMinute, $lte: endOfMinute } // فقط الأدوية ضمن الدقيقة الحالية
+    }).populate('user', 'deviceId token');
   } catch (error) {
+    console.error('MongoDB query failed:', error);
     throw new Error(ERRORS.MEDICINE.FETCH_FAILED);
   }
 };
+
 
 /**
  * Update the last reminder sent time

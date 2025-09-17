@@ -16,7 +16,7 @@ const STATUS_CODES = {
 const MEDICINE = {
   REMINDER_TYPES: {
     SPECIFIC_TIME: 'specific_time',
-    EVERY_X_HOURS: 'every_x_hours'
+    EVERY_X_HOURS: 'every_x_hours',
   },
   REMINDER_FREQUENCY: {
     ONCE: 1,
@@ -71,6 +71,10 @@ const ERRORS = {
     UPDATE_FAILED: 'Failed to update settings',
     RESET_FAILED: 'Failed to reset settings',
     UPDATE_PRAYER_REMINDER_FAILED: 'Failed to update prayer reminder',
+  },
+  MEDICINE: {
+    NOT_FOUND: "Medicine not found",
+    FETCH_FAILED: "Failed to fetch medicines"
   },
 };
 
