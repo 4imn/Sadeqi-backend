@@ -9,6 +9,9 @@ const connectDB = require('./config/db');
 const { initScheduler } = require('./utils/scheduler');
 const auth = require('./middlewares/auth');
 const swaggerSetup = require('./swagger');
+const rateLimit = require("express-rate-limit");
+const RedisStore = require("rate-limit-redis");
+const Redis = require("ioredis");
 
 // Initialize Express app
 const app = express();
@@ -28,6 +31,20 @@ app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Rate limiting with Redis
+const apiLimiter = rateLimit({
+  store: new RedisStore({
+    sendCommand: (...args) => redisClient.call(...args),
+  }),
+  windowMs: 5 * 60 * 1000, 
+  max: 100, 
+  standardHeaders: true, 
+  legacyHeaders: false,
+  message: "Too many requests, please try again later."
+});
+
+app.use("/api", apiLimiter); 
 
 // Import routes
 const deviceRoutes = require('./routes/device.routes');
