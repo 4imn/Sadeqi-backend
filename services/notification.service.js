@@ -1,4 +1,4 @@
-const { Device } = require('../models/device.model');
+const Device = require('../models/device.model');
 const { sendMulticastNotification } = require('./push-notification.service');
 const logger = require('../utils/logger');
 
@@ -36,7 +36,7 @@ const sendPrayerTimeNotification = async (prayerInfo) => {
 
     // Extract valid tokens
     const tokens = devices
-      .map(device => device.token)
+      .map(device => device.fcmtoken)
       .filter(token => token && token.trim() !== '');
     
     if (tokens.length === 0) {

@@ -2,6 +2,18 @@ const { checkUpcomingPrayerTimes, cacheCountryPrayerTimes } = require('../servic
 const moment = require('moment-timezone');
 const { getPrayerTimestamp } = require('../services/prayer.service');
 
+const connectDB = require('../config/db'); 
+(async () => {
+  try {
+    await connectDB();
+    console.log("✅ Connected to MongoDB");
+  } catch (err) {
+    console.error("❌ Failed to connect MongoDB:", err);
+    process.exit(1);
+  }
+})();
+
+
 function formatTime(date) {
   return moment(date).format('HH:mm');
 }
@@ -34,7 +46,7 @@ async function testPrayerNotification() {
     
     // Cache the test prayer times
     console.log('Caching prayer times...');
-    await cacheCountryPrayerTimes('TST', now, testPrayerTimes);
+    await cacheCountryPrayerTimes('AUE', now, testPrayerTimes);
     
     console.log('✅ Test prayer time set for:', testPrayerTime.toISOString());
     console.log('⏳ Waiting for prayer time... (checking every 2 seconds)');
